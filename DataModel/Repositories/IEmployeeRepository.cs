@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using EmpAppBE.Models;
+using DataModel;
 
-namespace EmpAppBE.Repositories
+namespace DataModel.Repositories
 {
     interface IEmployeeRepository : IMainRepository<employee>
     {

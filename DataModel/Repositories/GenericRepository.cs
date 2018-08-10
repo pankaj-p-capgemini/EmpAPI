@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using EmpAppBE.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using DataModel;
 
-namespace EmpAppBE.Repositories
+namespace DataModel.Repositories
 {
-    public abstract class GenericRepository<Cntx, TEntity> : IMainRepository<TEntity> where TEntity : class where Cntx : DbContext, new()
+    public abstract class GenericRepository<Cntx, TEntity> : IDisposable, IMainRepository<TEntity> where TEntity : class where Cntx : DbContext, new()
     {
         private Cntx _entities = new Cntx();
         public Cntx Context
@@ -30,11 +30,11 @@ namespace EmpAppBE.Repositories
             return query;
         }
 
-        //public TEntity FindBy(int id)//Expression<Func<TEntity, bool>>  predicate
-        //{
-        //    TEntity query = _entities.Set<TEntity>().Find(id); //.Where(predicate);
-        //    return query;
-        //}
+        public TEntity GetByID(int id)
+        {
+            TEntity query = _entities.Set<TEntity>().Find(id);
+            return query;
+        }
 
         public virtual TEntity Insert(TEntity entity)
         {
@@ -56,5 +56,37 @@ namespace EmpAppBE.Repositories
         {
             _entities.SaveChanges();
         }
+
+        #region Implementing IDiosposable...  
+
+        #region private dispose variable declaration...  
+        private bool disposed = false;
+        #endregion
+
+        /// <summary>  
+        /// Protected Virtual Dispose method  
+        /// </summary>  
+        /// <param name="disposing"></param>  
+        protected void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _entities.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        /// <summary>  
+        /// Dispose method
+        /// </summary>  
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

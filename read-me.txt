@@ -1,0 +1,22 @@
+BusinessEntities (Models) :: business logic layer :: data transfer objects :: to communicate between the business logic and the Web API project
+
+BusinessServices (Services) :: business logic layer :: AutoMapper :: we can use our API controllers to write the business logic, but I am trying to segregate my business logic
+in an extra layer so that if in the future I want to use WCF, MVC, ASP.Net Web Pages or any other application.
+
+DataModel (Data Access) :: Data Access Layer :: Generic Repository with Unit of Work :: 
+
+WebAPI (Controllers/Actions) :: 
+
+
+
+Logger & Global Exception Handling
+
+API Exceptions – for API level exceptions.
+Business Exceptions – for exceptions at business logic level.
+Data Exceptions – Data related exceptions.
+
+
+
+
+
+ 

@@ -1,52 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EmpAppBE.Models;
+using DataModel;
+using DataModel.UnitOfWork;
 
-namespace EmpAppBE.Repositories
+namespace DataModel.Repositories
 {
-    public class EmployeeUOW
+    public class EmployeeUOW : IUnitOfWork
     {
-        private EmployeeRepository empGenObj = new EmployeeRepository();
-        private EmployeeRepository empPerObj = new EmployeeRepository();
-        private EmployeeRepository empConObj = new EmployeeRepository();
-        private EmployeeRepository empQuaObj = new EmployeeRepository();
+        public EmployeeRepository EmployeeRepository = new EmployeeRepository();
+        public EmployeeRepository _empPerObj = new EmployeeRepository();
+        public EmployeeRepository _empConObj = new EmployeeRepository();
+        public EmployeeRepository _empQuaObj = new EmployeeRepository();
 
         public EmployeeUOW()
         {
 
         }
 
-        public IQueryable<employee> GetAll()
+        public void SaveChanges()
         {
-            var query = empGenObj.GetAll();
-            return query;
-        }
-
-        public employee GetSingle(int empId)
-        {
-            var query = empGenObj.GetSingle(empId);
-            return query;
-        }
-
-        public void Insert(employee empObj)
-        {
-            empGenObj.Insert(empObj);
-        }
-
-        public void Update(employee empObj)
-        {
-            empGenObj.Update(empObj);
-        }
-
-        public void Delete(employee empObj)
-        {
-            empGenObj.Delete(empObj);
-        }
-
-        public void Save()
-        {
-            empGenObj.Save();
+            EmployeeRepository.Save();
         }
     }
 }

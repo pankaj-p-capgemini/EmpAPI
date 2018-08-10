@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using EmpAppBE.Models;
+using DataModel;
 
-namespace EmpAppBE.Repositories
+namespace DataModel.Repositories
 {
-    public class EmployeeRepository : GenericRepository<EmpDBEntities, employee>
+    public class EmployeeRepository : GenericRepository<EmpDBEntities, employee>, IEmployeeRepository
     {
         public employee GetSingle(int empID)
         {
